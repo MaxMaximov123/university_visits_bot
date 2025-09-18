@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  telegram-bot:
+    build: .
+    container_name: university_visits_bot
+    restart: always
+    env_file: .env
