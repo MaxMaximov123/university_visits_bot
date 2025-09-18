@@ -34,7 +34,7 @@ def send_poll():
 schedule.every().monday.at("05:00").do(send_poll)
 schedule.every().tuesday.at("05:00").do(send_poll)
 schedule.every().wednesday.at("05:00").do(send_poll)
-schedule.every().thursday.at("17:35").do(send_poll)
+schedule.every().thursday.at("17:40").do(send_poll)
 schedule.every().friday.at("05:00").do(send_poll)
 
 @bot.message_handler(func=lambda m: True)
