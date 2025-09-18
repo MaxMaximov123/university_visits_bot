@@ -34,12 +34,11 @@ def send_poll():
 schedule.every().monday.at("05:00").do(send_poll)
 schedule.every().tuesday.at("05:00").do(send_poll)
 schedule.every().wednesday.at("05:00").do(send_poll)
-schedule.every().thursday.at("15:00").do(send_poll)
+schedule.every().thursday.at("05:00").do(send_poll)
 schedule.every().friday.at("05:00").do(send_poll)
 
 @bot.message_handler(func=lambda m: True)
 def debug(m):
-    send_poll()
     print("chat_id:", m.chat.id, "thread_id:", m.message_thread_id)
 
 def scheduler():
