@@ -45,7 +45,10 @@ schedule.every().friday.at("05:00").do(send_poll)
 def manual_poll(message):
     if message.from_user.username in ADMIN_USERNAMES:
         send_poll()
-        bot.reply_to(message, "Опрос отправлен ✅")
+        try:
+            bot.delete_message(message.chat.id, message.message_id)
+        except Exception as e:
+            print("Не удалось удалить /poll:", e)
     else:
         bot.reply_to(message, "У тебя нет прав на эту команду 🚫")
 
