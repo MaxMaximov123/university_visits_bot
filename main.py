@@ -62,7 +62,12 @@ def handle_poll_answer(answer):
 
 @bot.message_handler(func=lambda m: True)
 def debug(m):
-    print("chat_id:", m.chat.id, "thread_id:", m.message_thread_id)
+    # Delete any message in the configured chat/topic
+    if m.chat.id == CHAT_ID and (TOPIC_ID is None or getattr(m, "message_thread_id", None) == TOPIC_ID):
+        try:
+            bot.delete_message(m.chat.id, m.message_id)
+        except Exception as e:
+            print(f"Не удалось удалить сообщение {m.message_id} в чате {m.chat.id}: {e}")
 
 
 def scheduler():
