@@ -23,7 +23,7 @@ def send_poll():
     today = datetime.date.today()
     print('sending')
     date_str = today.strftime("%d.%m.%Y")
-    question = f"📌Придёшь на пары {date_str}🫩🤥?"
+    question = f"📌{date_str}. Придёшь сегодня 🫩🤥?"
     bot.send_poll(
         chat_id=CHAT_ID,
         question=question,
