@@ -14,7 +14,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
 TOPIC_ID = os.getenv("TOPIC_ID")
 TOPIC_ID = int(TOPIC_ID) if TOPIC_ID not in (None, "", "None") else None
-ADMIN_USERNAMES = ["kotok594"]
+ADMIN_USERNAMES = ["kotik594"]
 
 bot = telebot.TeleBot(TOKEN)
 
