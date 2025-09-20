@@ -21,17 +21,16 @@ bot = telebot.TeleBot(TOKEN)
 
 def send_poll():
     today = datetime.date.today()
-    if today.weekday() < 5:
-        print('sending')
-        date_str = today.strftime("%d.%m.%Y")
-        question = f"Придёшь на пары {date_str}???"
-        bot.send_poll(
-            chat_id=CHAT_ID,
-            question=question,
-            options=["Да", "Нет"],
-            is_anonymous=False,
-            message_thread_id=TOPIC_ID
-        )
+    print('sending')
+    date_str = today.strftime("%d.%m.%Y")
+    question = f"📌Придёшь на пары {date_str}🫩🤥?"
+    bot.send_poll(
+        chat_id=CHAT_ID,
+        question=question,
+        options=["Да", "Нет"],
+        is_anonymous=False,
+        message_thread_id=TOPIC_ID
+    )
 
 
 schedule.every().monday.at("05:00").do(send_poll)
