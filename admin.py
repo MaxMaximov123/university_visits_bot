@@ -36,6 +36,7 @@ def main_menu_keyboard(settings):
         types.InlineKeyboardButton(f"Рассылка: {icon}", callback_data="admin:toggle_mailing"),
         types.InlineKeyboardButton("📝 Контент рассылки", callback_data="admin:content"),
         types.InlineKeyboardButton("📊 Статистика", callback_data="admin:stats"),
+        types.InlineKeyboardButton("👁 Превью рассылки", callback_data="admin:preview"),
     )
     return kb
 

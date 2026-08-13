@@ -24,10 +24,7 @@ bot = telebot.TeleBot(TOKEN)
 db.init_db()
 
 
-def send_daily_message():
-    if db.get_setting("mailing_enabled") != "1":
-        return
-
+def build_daily_message():
     today = datetime.date.today()
     settings = db.get_all_settings()
 
@@ -51,9 +48,17 @@ def send_daily_message():
     if yesterday_text:
         parts.append(yesterday_text)
 
-    message_text = "\n".join(parts).strip()
+    return "\n".join(parts).strip()
+
+
+def send_daily_message():
+    if db.get_setting("mailing_enabled") != "1":
+        return
+
+    message_text = build_daily_message()
     bot.send_message(CHAT_ID, message_text, message_thread_id=TOPIC_ID)
 
+    today = datetime.date.today()
     date_str = today.strftime("%d.%m.%Y")
     sent = bot.send_poll(
         chat_id=CHAT_ID,
@@ -128,6 +133,20 @@ def admin_start(message):
 def callback_handler(call):
     if not admin.is_admin(call):
         bot.answer_callback_query(call.id, "Нет доступа 🚫")
+        return
+    if call.data == "admin:preview":
+        bot.answer_callback_query(call.id)
+        chat_id = call.message.chat.id
+        message_text = build_daily_message()
+        bot.send_message(chat_id, message_text)
+        today = datetime.date.today()
+        bot.send_poll(
+            chat_id=chat_id,
+            question=f"📌 {today.strftime('%d.%m.%Y')}. Придёшь сегодня?",
+            options=["Буду! 💪", "Опоздаю 🏃", "Не приду 😴"],
+            is_anonymous=False,
+            type="regular",
+        )
         return
     admin.handle_callback(call, bot)
 
